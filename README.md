@@ -1,5 +1,8 @@
 SentinelTrail
+
 Follow the evidence.
+
+
 SentinelTrail is an educational cybersecurity web application that turns raw filesystem activity into investigation case files. Each case walks through a signal, the evidence behind it, an analyst’s reasoning, its potential impact, a recommended response, and an outcome.
 It also maintains a tamper-evident hash chain for recorded events, allowing you to simulate an evidence record being modified after the fact and verify that the integrity check detects the change.
 Note: SentinelTrail is a simulated learning environment built as a cybersecurity portfolio project. It is not a production SIEM, enterprise SOC platform, or digital forensics tool. Its evidence storage is not immutable in the way a production system would require. See Known limitations for the exact scope and trade-offs.
