@@ -75,17 +75,24 @@ def api_reset():
     chain.reset_chain()
     return jsonify({"ok": True})
 
-@app.route("/api/simulate-incident", methods=["POST"]) 
-def api_simulate_incident(): """Runs a short, realistic sequence of file operations against the sandboxed demo folder so the dashboard has something to show without requiring a terminal. Takes ~2-3 seconds; the watcher picks up each operation live as it happens.""" 
-result = run_simulated_incident(DEMO_TARGET) 
-return jsonify(result)
+@app.route("/api/simulate-incident", methods=["POST"])
+def api_simulate_incident():
+    """Runs a short, realistic sequence of file operations against the
+    sandboxed demo folder so the dashboard has something to show without
+    requiring a terminal. Takes ~2-3 seconds; the watcher picks up each
+    operation live as it happens."""
+    result = run_simulated_incident(DEMO_TARGET)
+    return jsonify(result)
 
-#Start the filesystem watcher when the Flask app is loaded.
-#This is required for both local execution and Gunicorn/Render.
-DEMO_TARGET.mkdir(exist_ok=True) 
+
+# Start the filesystem watcher when the Flask app is loaded.
+# This is required for both local execution and Gunicorn/Render.
+DEMO_TARGET.mkdir(exist_ok=True)
 watcher.start_watching(str(DEMO_TARGET))
-if __name__ == "__main__": 
-port = int(os.environ.get("PORT", 5050)) 
-app.run(host="0.0.0.0", port=port, debug=False)
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5050))
+    app.run(host="0.0.0.0", port=port, debug=False)
 
   
