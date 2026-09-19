@@ -38,14 +38,14 @@ A live filesystem watcher powered by watchdog also monitors the folder in real t
 Every event is evaluated against a small set of rule-based heuristics.
 Events that trigger a detector become case files, while routine background activity remains in the evidence log without becoming a case. This keeps the case list focused on detected signals rather than general filesystem noise.
 Opening a case provides its full investigation:
-Evidence Trail
-What was observed
-Why it matters
-Simulated Indicator of Compromise (IoC)
-Analyst reasoning
-Recommended response
-Lessons learned
-Evidence Integrity
+- Evidence Trail
+- What was observed
+- Why it matters
+- Simulated Indicator of Compromise (IoC)
+- Analyst reasoning
+- Recommended response
+- Lessons learned
+- Evidence Integrity
 Each case’s underlying evidence record can also be inspected and, for demonstration purposes, deliberately modified.
 Verify Evidence Trail re-checks the recorded hashes and reflects the verification result back into the relevant case status and Outcome stage.
 Reset Demo Data clears the generated demo data, including the sandbox folder, so the scenario can be run again from a clean state.
@@ -54,28 +54,30 @@ Reset Demo Data clears the generated demo data, including the sandbox folder, so
 
 
 Core features
-Real-time filesystem monitoring of a sandboxed folder
-Five behavioral, rule-based detectors
-Analyst-style investigation writeups mapped to each detector
-Tamper-evident, hash-chained evidence log
-One-click integrity verification across the evidence chain
-In-app tamper simulation demonstrating evidence-integrity detection
-Responsive case-file and investigation-view layout
-Side-by-side investigation interface on desktop
-Stacked investigation layout on tablet
-Single-column investigation timeline on mobile
-In-app Demo Guide
-No developer instructions embedded in the user-facing interface
-
+- Real-time filesystem monitoring of a sandboxed folder
+- Five rule-based filesystem activity detectors
+- Analyst-style investigation writeups mapped to each detector
+- Tamper-evident, hash-chained evidence log
+- One-click integrity verification across the evidence chain
+- In-app tamper simulation demonstrating evidence-integrity detection
+- Responsive case-file and investigation-view layout
+- Side-by-side investigation interface on desktop
+- Stacked investigation layout on tablet
+- Single-column investigation timeline on mobile
+- In-app Demo Guide
+- No developer instructions embedded in the user-facing interface
 
 
 
 Security concepts demonstrated
-Behavioral, rule-based anomaly detection
-Running the demo from the terminal
-The same simulated incident can also be triggered from the command line:
-python scripts/demo_attack.py
-This is optional. After starting the application, the entire demonstration can be performed through the browser.
+Rule-based filesystem activity detection
+SentinelTrail uses transparent, explainable rules to identify filesystem activity that may warrant investigation, including:
+Suspicious file extensions
+Hidden-file activity
+Bursts of file deletions
+Rapid file modifications
+Off-hours activity
+The detectors use simple thresholds and conditions rather than statistical or machine-learning models. This keeps each detection decision traceable and explainable during an investigation.
 
 
 
