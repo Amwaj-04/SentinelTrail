@@ -51,15 +51,11 @@ This path is the literal Evidence Trail shown on every case: a horizontal steppe
 
 - **Behavioral, rule-based anomaly detection** — using five explainable detectors:
   
-1.Suspicious-extension drops
-
-2.Hidden-file staging
-
-3.Deletion bursts
-
-4.Rapid modification bursts (a simple ransomware-pattern heuristic)
-
-5.Off-hours activity
+1.Suspicious-extension drops.
+2.Hidden-file staging.
+3.Deletion bursts.
+4.Rapid modification bursts (a simple ransomware-pattern heuristic).
+5.Off-hours activity.
 
 - **Hash chaining for tamper evidence** — each event's hash is derived from the previous event's hash (`SHA-256(prev_hash + timestamp + type + path + detail + severity + reason)`). This demonstrates a common integrity pattern used in systems such as blockchain data structures, version-control systems, and forensic evidence workflows. Editing a past record makes its own stored hash stop matching a fresh recomputation, which Verify Evidence Trail catches immediately.
 - **Indicators of Compromise (IoC)** framing for detected anomalies, and a structured investigation writeup (analysis / impact / response / lessons learned) per detector, modeled loosely on how a junior analyst would document a finding.
