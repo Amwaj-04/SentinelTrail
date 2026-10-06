@@ -51,15 +51,15 @@ This path is the literal Evidence Trail shown on every case: a horizontal steppe
 
  **Behavioral, rule-based anomaly detection** — using five explainable detectors:
   
-    1.Suspicious-extension drops.
+   1.Suspicious-extension drops.
 
-    2.Hidden-file staging.
+   2.Hidden-file staging.
 
-    3.Deletion bursts.
+   3.Deletion bursts.
 
-    4.Rapid modification bursts (a simple ransomware-pattern heuristic).
+   4.Rapid modification bursts (a simple ransomware-pattern heuristic).
 
-    5.Off-hours activity.
+   5.Off-hours activity.
 
 
 
