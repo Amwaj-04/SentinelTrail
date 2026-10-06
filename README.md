@@ -8,7 +8,7 @@ SentinelTrail is an educational cybersecurity web application that turns raw fil
 
 ## What SentinelTrail is
 
-Most junior security portfolios show a table of logs. SentinelTrail instead asks: *if you found this file activity, how would you investigate it?* Every detected anomaly becomes a case file with a full investigation narrative, not just a row in a table — and the underlying evidence log is built so that tampering with it is provably detectable, which is a real, practical concern in incident response (attackers routinely try to edit logs to cover their tracks).
+Most junior security portfolios show a table of logs. SentinelTrail instead asks: *if you found this file activity, how would you investigate it?* Every detected anomaly becomes a case file with a full investigation narrative, not just a row in a table — and the underlying evidence log is built so that tampering with it is detectable through integrity verification, which is a real, practical concern in incident response (attackers routinely try to edit logs to cover their tracks).
 
 ## The "Follow the evidence" concept
 
@@ -49,8 +49,13 @@ This path is the literal Evidence Trail shown on every case: a horizontal steppe
 
 ## Security concepts demonstrated
 
-- **Behavioral, rule-based anomaly detection** — suspicious-extension drops, hidden-file staging, deletion-burst and rapid-modification rate detection (a simple ransomware-pattern heuristic), and off-hours activity.
-- **Hash chaining for tamper evidence** — each event's hash is derived from the previous event's hash (`SHA-256(prev_hash + timestamp + type + path + detail + severity + reason)`), the same idea used by blockchains, git, and forensic chain-of-custody logs. Editing a past record makes its own stored hash stop matching a fresh recomputation, which `verify` catches immediately.
+- **Behavioral, rule-based anomaly detection** — using five explainable detectors:
+1.Suspicious-extension drops
+2.Hidden-file staging
+3.Deletion bursts
+4.Rapid modification bursts (a simple ransomware-pattern heuristic)
+5.Off-hours activity
+- **Hash chaining for tamper evidence** — each event's hash is derived from the previous event's hash (`SHA-256(prev_hash + timestamp + type + path + detail + severity + reason)`), This demonstrates a common integrity pattern used in systems such as blockchain data structures, version-control systems, and forensic evidence workflows. Editing a past record makes its own stored hash stop matching a fresh recomputation, which Verify Evidence Trail catches immediately.
 - **Indicators of Compromise (IoC)** framing for detected anomalies, and a structured investigation writeup (analysis / impact / response / lessons learned) per detector, modeled loosely on how a junior analyst would document a finding.
 
 ## Technical stack
@@ -135,7 +140,7 @@ python scripts/demo_attack.py
 
 This is a portfolio-scale demo, and a few things are intentionally simplified:
 
-- **The hash chain is self-contained.** The verifier distinguishes record integrity from chain continuity. An attacker with full read/write access to the SQLite database could still recompute and replace the entire chain, making it internally self-consistent again. Production systems address this with an external append-only anchor or remote log destination. Production systems address this with an external append-only anchor or remote log destination. That remains a deliberate portfolio-scale limitation.
+- **The hash chain is self-contained.** The verifier distinguishes record integrity from chain continuity. An attacker with full read/write access to the SQLite database could still recompute and replace the entire chain, making it internally self-consistent again. Production systems address this with an external append-only anchor or remote log destination. That remains a deliberate portfolio-scale limitation.
 - **The detectors are simple, fixed heuristics** (extension checks, rate thresholds, time-of-day windows), not statistical or learned models. That's a deliberate scope choice, not an oversight — it keeps the reasoning fully explainable, which is the point of a portfolio project like this.
 - **Single-process, single-user demo.** There is no authentication or multi-user case ownership. The state-changing demo endpoints require a custom same-origin request header to reduce simple CSRF, but this is not an authentication boundary; the application is intentionally a public portfolio demo.
 - **Render storage is ephemeral on the free tier.** SQLite data and the sandbox folder can be reset when the service is restarted/redeployed. The application therefore treats the four-case demo as reproducible portfolio data rather than production persistence.
